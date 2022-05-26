@@ -1,67 +1,118 @@
 import './App.css';
-import Navbar from './Navbar';
-import Home from  './Home'
-import NewPost from  './NewPost'
+import Navbar from './Components/Navbar';
+import Home from  './Pages/Home'
+import NewPost from  './Components/NewPost'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Footer from  './Footer'
-import ErrorPage from './ErrorPage'
-import About from './About';
-import PostPage from './PostPage';
+
+import ErrorPage from './Pages/ErrorPage'
+import About from './Components/About';
+import PostPage from './Pages/PostPage';
+import AddPostPage from './Pages/AddPostPage';
 
 
-import {useState, UseEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 
 function App() {
 
-    const [posts, setPosts] = useState([
-      {
-        id:1,
-        title:"React Js Tutorial",
-        date:"June 02, 2022 11:17:52 AM",
-        "body":"React, Django framework,Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum. Python Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsu"
-      },
-      {
-        id:2,
-        title:"The Presidency Title Race",
-        date:"June 02, 2022 11:17:52 AM",
-        "body":"Presidential Politics is Lorem ip Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum.sum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum. "
-      },
-      {
-        id:3,
-        title:"The Wicked Edition",
-        date:"June 02, 2022 11:17:52 AM",
-        "body":"Lorem ip Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum.sum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum. "
-      }
-    ])
+    const [posts, setPosts] = useState([]);
+    const [search, setSearch]= useState('');
+    const apiUrl = "http://localhost:3500/posts";
 
-    const [search, setSearch]= useState('')
+  
+    const [title, setTitle]=useState("");
+    const [date, setDate]=useState("");
+    const [body, setBody]=useState("");
+
+
+    useEffect(()=>{
+      getPosts()
+
+    },[])
+
+    const getPosts = async () => {
+      const response = await fetch(apiUrl)
+      const data = await response.json()
+      setPosts(data)
+    }
+
+    const addPost = async (title,date,body) =>{
+      const id = title.length ? posts[posts.length-1].id+1:1;
+      const newPost = {id, title,date,body};
+      console.log(newPost)
+
+      fetch(apiUrl, {
+        method: 'POST',
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(newPost)
+    })
+
+
+    }
+
+    const handlesubmit = (e) => {
+      e.preventDefault();
+      if (!title) return;
+        addPost(title,date,body)
+        setTitle('')
+        setDate('')
+        setBody('')
+  
+    }
+
+    const deletePost = async (id) => {
+      const listPosts = posts.filter(post => post.id !== id);
+      setPosts(listPosts)
+
+      fetch(`${apiUrl}/${id}`, {
+        method: 'DELETE',
+        'headers': {
+            'Content-Type': 'application/json'
+        }
+    })
+    }
 
 
   return (
   <Router>
-     <Navbar/>
+     <Navbar
+      search={search}
+      setSearch={setSearch}
+     />
     
       <Routes>
        <Route path='/' 
           element={<Home
-          posts={posts}         
+          posts={posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()) )}         
           />}/>
+
        <Route path='/about' element={<About/>}/>
 
-       <Route path='/new' element={<NewPost/>}/>
+       <Route path='/new' element={<AddPostPage
+          title={title}
+          setTitle={setTitle}
+          date={date}
+          setDate={setDate}
+          body={body}
+          setBody={setBody}
+          handlesubmit={handlesubmit}
+
+       />}/>
 
        <Route path='/post:id' element={<PostPage 
-          posts={posts}/>}
+          posts={posts}
+          deletePost={deletePost}
+          />}
           />
-       <Route path='/footer' element={<Footer/>}/>
+
        
        <Route path='*' element={<ErrorPage/>}/>
-       
-     
       </Routes> 
-      </Router>
+
+  </Router>
    
   
   );
