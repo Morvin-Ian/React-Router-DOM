@@ -6,10 +6,11 @@ const Home = ({posts}) => {
     return (
         <div className="posts">
 
-            {posts.map((post =>
-                    < Post post={post}/>
-                
-                ))}
+            {posts.length ? 
+                posts.map((post =>
+                        < Post key={post.id} post={post}/>
+                    
+                    )):"Empty Posts"}
         </div>
     )
 }

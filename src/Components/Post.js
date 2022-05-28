@@ -7,7 +7,7 @@ const Post = ({post}) => {
 
             <Link className='post-link' to={`/post:${post.id}`}>
                 <p >
-                    <strong>{post.id}) {post.title} </strong> <br/>
+                    <strong>{post.title} </strong> <br/>
                     <small>
                         {post.date} <br/>
                         {(post.body).length <= 20 ? post.body : `${(post.body).slice(0,20)}...`}

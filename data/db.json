@@ -2,15 +2,9 @@
   "posts": [
     {
       "id": 1,
-      "title": "React Js Tutorial",
-      "date": "June 02, 2022 11:17:52 AM",
-      "body": "React, Django framework,Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum. Python Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsu"
-    },
-    {
-      "id": 3,
-      "title": "The Wicked Edition",
-      "date": "June 02, 2022 11:17:52 AM",
-      "body": "Lorem ip Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum.sum dolor sit amet consectetur adipisicing elit. Numquam incidunt reprehenderit fuga rem repellendus earum voluptatum maiores esse animi ipsum. "
+      "title": "Wicked Edition",
+      "date": "22.12.2022",
+      "body": "It is a comic show that is similar to Trevor's"
     }
   ]
 }
