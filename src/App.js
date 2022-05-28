@@ -8,6 +8,7 @@ import ErrorPage from './Pages/ErrorPage'
 import About from './Components/About';
 import PostPage from './Pages/PostPage';
 import AddPostPage from './Pages/AddPostPage';
+import EditPage from './Pages/EditPage';
 
 
 
@@ -34,6 +35,11 @@ function App() {
     const [title, setTitle]=useState("");
     const [date, setDate]=useState("");
     const [body, setBody]=useState("");
+
+    //update
+    const [editTitle, setEditTitle]=useState("");
+    const [editDate, setEditDate]=useState("");
+    const [editBody, setEditBody]=useState("");
 
 
 
@@ -111,19 +117,26 @@ function App() {
 
     
     const handleupdates = async (id) =>{
-      const listPosts = posts.map(post => post.id === id ? {...post, title, date, body }: post);      
-    
-      const myPost = listPosts.filter((post) => post.id === id);
-      console.log(myPost)
-
-      fetch(`${apiUrl}/${id}`, {
-        method: 'PATCH',
-        'headers': {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(myPost)
-      })   
+      const updatePost = {id,title:editTitle, date:editDate, body:editBody}
+ 
+      // fetch(`${apiUrl}/${id}`, {
+      //   method: 'PUT',
+      //   'headers': {
+      //       'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(myPost)
+      // })   
       
+      try{
+          const response = await Aposts.put(`posts/${id}`, updatePost)
+          setPosts(posts.map(post => post.id === id ? {...response.data}: post))
+          setEditTitle('')
+          setEditDate('')
+          setEditBody('')
+      }
+      catch(err){
+        console.log(err.message)
+      }
     
 
     }
@@ -181,6 +194,17 @@ function App() {
           body={body}
           setBody={setBody}
           handlesubmit={handlesubmit}
+
+       />}/>
+
+      <Route path='/edit:id' element={<EditPage
+          editTtle={editTitle}
+          setEditTitle={setEditTitle}
+          editDate={editDate}
+          setEditDate={setEditDate}
+          editBody={editBody}
+          setEditBody={setEditBody}
+          handleupdates={handleupdates}
 
        />}/>
 
