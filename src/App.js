@@ -16,9 +16,6 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 
-
-
-
 function App() {
 
     const Aposts = axios.create ({
@@ -117,7 +114,7 @@ function App() {
 
     
     const handleupdates = async (id) =>{
-      const updatePost = {id,title:editTitle, date:editDate, body:editBody}
+      const updatePost = {id, editTitle, editDate, editBody}
  
       // fetch(`${apiUrl}/${id}`, {
       //   method: 'PUT',
@@ -166,17 +163,12 @@ function App() {
       fetchPosts();
     },[])
 
-
-
-
-
-
   return (
-  <Router>
-     <Navbar
-      search={search}
-      setSearch={setSearch}
-     />
+    <Router>
+       <Navbar
+        search={search}
+        setSearch={setSearch}
+       />
     
       <Routes>
        <Route path='/' 
@@ -197,8 +189,9 @@ function App() {
 
        />}/>
 
-      <Route path='/edit:id' element={<EditPage
-          editTtle={editTitle}
+      <Route path='/edit/:id' element={<EditPage
+          posts={posts}
+          editTitle={editTitle}
           setEditTitle={setEditTitle}
           editDate={editDate}
           setEditDate={setEditDate}
@@ -208,9 +201,10 @@ function App() {
 
        />}/>
 
-       <Route path='/post:id' element={<PostPage 
+       <Route path='/post/:id' element={<PostPage 
           posts={posts}
           deletePost={deletePost}
+     
           />}
           />
 

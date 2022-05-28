@@ -2,8 +2,9 @@ import React from 'react'
 
 const AddPostPage = ({title,setTitle,date,setDate,body,setBody, handlesubmit}) => {
   return (
+  
     <form className='form' onSubmit={handlesubmit}>
-    
+      <h3>Create Post</h3>  
             <input
 
                 autoFocus

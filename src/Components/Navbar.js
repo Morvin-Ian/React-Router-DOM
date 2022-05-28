@@ -18,9 +18,8 @@ const Navbar = ({search, setSearch}) => {
             </form>
 
             <Link className='link'  to="/">Home</Link>
-            <Link className='link' to="/post/:id">Post</Link>
             <Link className='link' to="/new">New Post</Link>
-            <Link className='link' to="/about">Contact</Link>
+            <Link className='link' to="/about">About</Link>
          
         </ul>
     )

@@ -7,7 +7,7 @@ const PostPage = ({posts, deletePost}) => {
     // id comes inform of ":1" therefore to pick the id only id[2] 
     const post = posts.find(post => (post.id).toString() === id[1]);
 
- 
+    console.log(posts)
     return (
         <div className='individual-post'>
 
@@ -16,7 +16,7 @@ const PostPage = ({posts, deletePost}) => {
                     <h3>{post.title}</h3>
                     <small><em>{post.date}</em> <br/></small>
                     <small>{post.body}</small> <br/>
-                    <button id='del'> <Link to={`/edit/${post.id}`}>Update</Link> </button>
+                    <button id='upd'> <Link className='upd-link' to={`/edit/:${post.id}`}>Update</Link> </button>
                     <button id='del' onClick={()=>deletePost(post.id)}>Delete</button>
                  
                 </>

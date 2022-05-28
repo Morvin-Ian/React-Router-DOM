@@ -78,3 +78,49 @@
   border-radius: 3px;
   padding: 10px;
 }
+
+#upd {
+  background-color: blue;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.upd-link{
+  text-decoration: none;
+  color: black;
+}
+
+#submit{
+  background-color: blue;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px;
+  color: white;
+
+}
+
+
+form input{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 3px;
+  width: 50%;
+}
+
+form textarea{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 3px;
+  width: 50%;
+
+}
+
+form h3{
+  text-align: center;
+}
