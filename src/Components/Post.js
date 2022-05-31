@@ -5,7 +5,7 @@ const Post = ({post}) => {
     return (
       <div className='post'>
 
-            <Link className='post-link' to={`/post/:${post.id}`}>
+            <Link className='post-link' to={`/post/${post.id}`}>
                 <p >
                     <strong>{post.title} </strong> <br/>
                     <small>
